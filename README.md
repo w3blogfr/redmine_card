@@ -13,3 +13,10 @@ If you want to filter "assigned" select, you can edit groupId parameter in :
 
 redmine-card/assets/javascripts/card.js
 
+
+Installation
+==================
+
+Copy directory in plugin path. Please make sure than Rest Api is enabled on your Redmine.
+
+Plugin use api_key and Rest to works.
