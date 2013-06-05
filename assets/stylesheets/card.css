@@ -1,0 +1,96 @@
+	
+.ticket{
+	display:block;
+	float:left;
+	width:320px;
+	height:220px;
+	background-color:#FAFAFA;
+	border:1pt solid grey;
+	padding:10px;
+	border-collapse:collapse;
+	margin-top: -1pt;
+	margin-left: -1pt;
+}
+
+@media (-webkit-min-device-pixel-ratio:0){
+
+	/*Chrome CSS here*/
+
+	.ticket{
+		width:310px;
+	}
+}
+
+
+.ticket  .id{
+	float:right;
+	font-size:30px;
+	padding-top:3px;
+	height:30px;
+}
+
+.ticket  .subject{
+	display:block;
+	margin-top:25px;
+	font-size:18px;
+	line-height:20px;
+	font-weight:bold;
+}
+
+.ticket  .line{
+	display:block;
+	font-weight:bold;
+	margin-top:5px;
+}
+
+.ticket  .line span{
+	font-weight:normal;
+}
+
+.ticket  .author{
+}
+
+.ticket  .category{
+}
+
+.ticket  .createdOn{
+	
+}
+
+@media print{
+
+	@page { 
+		size: auto;   /* auto is the initial value */ 
+
+		/* this affects the margin in the printer settings */ 
+		margin: 0.5cm;  
+	} 
+
+	html,body{
+		margin:0 !important;
+		padding:0 !important;
+		width:100% !important;
+		height:100% !important;
+		min-width:0 !important;
+	}
+
+	body{
+		margin-top:1px !important;
+	}
+
+	#content{
+		width:100% !important;
+	}
+
+	.connexion , .project-form{
+		display:none !important;
+	}
+
+	.ticket{
+		page-break-inside:avoid;
+	}
+	
+	
+
+}
+

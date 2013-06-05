@@ -1,0 +1,10 @@
+class MyPostitController < ApplicationController
+  unloadable
+
+  def my_index
+    index
+    render 'index'
+  end
+
+
+end
