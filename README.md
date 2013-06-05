@@ -1,7 +1,8 @@
-redmine-postit
+Redmine Card
 ==================
 
-A Redmine plugin which show tickets like Post-it ready to print
+Redmine Card is plugin for Redmine to print quickly tickets to put on magnet board (Usefull for Scrum or Kanban)
+
 
 redmine-card is a redmine plugin to print tickets like flashcard or post-it.
 
