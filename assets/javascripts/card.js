@@ -70,7 +70,7 @@
 					if(jQuery('#search-assigned').val()!='0'){
 						url=url+'&assigned_to_id='+jQuery('#search-assigned').val();
 					}
-					if(jQuery('#date-since').val()!='0'){
+					if(jQuery('#date-since').val()!=''){
 						url=url+'&created_on=%3E%3D'+jQuery('#date-since').val();
 					}
 				}
