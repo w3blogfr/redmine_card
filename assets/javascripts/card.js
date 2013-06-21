@@ -4,6 +4,8 @@
 	* Use to filter assigned list
 	*/
 	var groupId=null;
+	
+	var showLinkedTicket=true;
 
 	var opt={
 		type:"GET",
@@ -74,6 +76,10 @@
 						url=url+'&created_on=%3E%3D'+jQuery('#date-since').val();
 					}
 				}
+				
+				if(showLinkedTicket){
+					url=url+'&include=relations';
+				}
 			
 				getJson(url,function(data){
 					var ticketCardModele=jQuery('.ticket-modele');
@@ -100,7 +106,7 @@
 	 * Fonction qui 
 	 */
 	function getDivPostIssue(ticketCardModele,issue){
-		var ticketCard=ticketCardModele.clone().removeClass('ticket-modele').show();
+		var ticketCard=ticketCardModele.clone().removeClass('ticket-modele').addClass('project'+issue.project.id).show();
 		jQuery('.id',ticketCard).html(issue.id);
 		jQuery('.subject',ticketCard).html(issue.subject);
 		//jQuery('.status',ticketCard).html(issue.status.name);
@@ -124,6 +130,18 @@
 			jQuery('.estimatedHour',ticketCard).html(issue.estimated_hours);
 		}else{
 			jQuery('.estimatedHour',ticketCard).html();
+		}
+		
+		if(showLinkedTicket && issue.relations.length>0){
+			var text="";
+			for (var i=0;i<issue.relations.length-1;i++){
+				text=text+issue.relations[i].id+"-";
+			}
+			text=text+issue.relations[issue.relations.length].id;
+			jQuery('.linked span',ticketCard).html(text);
+			jQuery('.linked',ticketCard).show();
+		}else{
+			jQuery('.linked',ticketCard).hide();
 		}
 		
 		

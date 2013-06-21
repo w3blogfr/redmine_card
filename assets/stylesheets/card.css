@@ -1,4 +1,16 @@
-	
+/** Paramètre projet */
+
+.project16{
+	background-color:palegreen;
+	/** lightgreen  */
+}
+
+.project16 .ticket  .id{
+	color:black;
+}
+
+
+
 .ticket{
 	display:block;
 	float:left;
@@ -56,6 +68,11 @@
 .ticket  .createdOn{
 	
 }
+
+
+
+
+
 
 @media print{
 
