@@ -83,6 +83,9 @@
 							var issue=data.issues[i];					
 							tickets.append(getDivPostIssue(ticketCardModele,issue));
 						}
+						if(data.total_count>data.limit){
+							alert(data.limit+"/"+data.total_count);
+						}
 					}else{
 						tickets.append(getDivPostIssue(ticketCardModele,data.issue));
 					}
