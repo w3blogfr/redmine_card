@@ -8,7 +8,7 @@
 
 <form class="form-horizontal project-form" onsubmit="return false;">
 	<div class="control-group">
-		<label class="control-label" for="project">Project</label>
+		<label class="control-label" for="project">Projet</label>
 		<div class="controls">
 			<select id="projet"></select>
 		</div>
@@ -28,7 +28,7 @@
 	<div class="control-group">
 		<label class="control-label" for="search-id">Id</label>
 		<div class="controls">
-			<input  type="text" id="search-id" placeholder="Search By id"/>
+			<input  type="text" id="search-id" placeholder="Rechercher par id"/>
 		</div>
 	</div>
 	<div class="control-group">
@@ -41,6 +41,9 @@
 <div class="ticket ticket-modele">
 	<span class="id"></span>
 	<span class="subject"></span>
+	<div class="line">
+		Project : <span class="project"></span>
+	</div>
 	<div class="line">
 		Author : <span class="author"></span>
 	</div>
@@ -56,10 +59,13 @@
 	<div class="line">
 		Commited Date : <span class="commitedDate"></span>
 	</div>
+	<div class="line">
+		Estimated Hour : <span class="estimatedHour"></span>
+	</div>
+
 </div>
 
 <div id="tickets">
 
 
 </div>
-
