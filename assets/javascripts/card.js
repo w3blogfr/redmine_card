@@ -101,6 +101,7 @@
 		jQuery('.id',ticketCard).html(issue.id);
 		jQuery('.subject',ticketCard).html(issue.subject);
 		//jQuery('.status',ticketCard).html(issue.status.name);
+		jQuery('.project',ticketCard).html(issue.project.name);
 		jQuery('.author',ticketCard).html(issue.author.name);
 		if(issue.category){
 			jQuery('.category',ticketCard).html(issue.category.name);
@@ -115,6 +116,13 @@
 		}else{
 			jQuery('.commitedDate',ticketCard).html();
 		}
+		
+		if(issue.due_date){
+			jQuery('.estimatedHour',ticketCard).html(issue.estimated_hours);
+		}else{
+			jQuery('.estimatedHour',ticketCard).html();
+		}
+		
 		
 		
 		if(issue.custom_fields){
