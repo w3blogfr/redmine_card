@@ -126,10 +126,16 @@
 			jQuery('.commitedDate',ticketCard).html();
 		}
 		
-		if(issue.due_date){
+		if(issue.estimated_hours){
 			jQuery('.estimatedHour',ticketCard).html(issue.estimated_hours);
 		}else{
 			jQuery('.estimatedHour',ticketCard).html();
+		}
+
+		if(issue.spent_hours){
+			jQuery('.spendTime',ticketCard).html(issue.spent_hours);
+		}else{
+			jQuery('.spendTime',ticketCard).html();
 		}
 		
 		if(showLinkedTicket && issue.relations.length>0){
