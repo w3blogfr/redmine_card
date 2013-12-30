@@ -60,11 +60,11 @@
 					jQuery('.project-form').show();
 				});
 			});
-			jQuery('.project-form .submit').click(function(){
+			jQuery('#buttonLoad').click(function(){
 				var url=null;
 				if(jQuery('#search-id').val()!=''){
 					//Recherche par id
-					url='/issues/'+jQuery('#search-id').val()+'.json';
+					url='/issues/'+jQuery('#search-id').val()+'.json?t';
 				}else{
 					//Recherche sur une liste
 					url='/issues.json?limit=5000';
@@ -100,6 +100,9 @@
 				})
 			});
 		
+			jQuery('#buttonClear').click(function(){
+				jQuery('#tickets').empty();
+			});
 
 	});
 	
@@ -140,7 +143,7 @@
 			jQuery('.spendTime',ticketCard).html();
 		}
 		
-		if(showLinkedTicket && issue.relations.length>0){
+		if(showLinkedTicket && issue.relations && issue.relations.length>0){
 			var text="";
 			for (var i=0;i<issue.relations.length-1;i++){
 				text=text+issue.relations[i].id+"-";
