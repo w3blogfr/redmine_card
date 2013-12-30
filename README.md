@@ -14,13 +14,21 @@ If you want to filter "assigned" select, you can edit groupId parameter in :
 redmine-card/assets/javascripts/card.js
 
 Screenshot
+==================
 
+Here is screenshot of Redmine Card in Redmine
+
+![Interface in Redmin](https://raw.github.com/w3blogfr/redmine_card/master/doc/redmine-web.png)
+
+Here is print preview
+
+![Print Preview](https://raw.github.com/w3blogfr/redmine_card/master/doc/redmine-print-preview.png)
 
 
 Installation
 ==================
 
-Copy directory in plugin path. Please make sure than Rest Api is enabled on your Redmine.
+Copy directory in plugin path. Please make sure than Rest API and Jsonp are enabled on your Redmine.
 
-Plugin use api_key and Rest to works.
+You can enable these options in Administration > Settings > Authentication
 
