@@ -28,7 +28,9 @@
 			}
 		}
 		var json1= jQuery.extend(opt,json2);
-		jQuery.ajax(json1).done(callback);
+		jQuery.ajax(json1).done(callback).fail(function( jqXHR, textStatus ) {
+		  alert( "Please check if you enable rest and jsonp in Administration > Settings > Authentication\n\nDetails : " + textStatus );
+		});
 
 	}
 	
