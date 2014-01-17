@@ -54,7 +54,7 @@
 						url = url + '&status_id=' + jQuery('#status').val();
 					}
 					if (jQuery('#date-since').val() !== '') {
-						=url+'&created_on=%3E%3D'+jQuery('#date-since').val();
+						url = url + '&created_on=%3E%3D' + jQuery('#date-since').val();
 					}
 				}
 				
