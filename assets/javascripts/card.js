@@ -8,8 +8,7 @@
 	var showLinkedTicket=true;
 
 	var opt={
-		type:"GET",
-		dataType: 'jsonp'
+		type:"GET"
 	};
 
 	relativeUrl=null;
@@ -40,52 +39,32 @@
 		apiKey=jQuery('#apiKey').val();
 	
 			jQuery('.ticket-modele').hide();
-			jQuery('#projet').empty();
-			jQuery('#search-assigned').empty();
-			getJson("/projects.json",function(data){
-				jQuery('#projet').append(jQuery('<option>').html('----------').attr('value',0));
-				for(i=0;i<data.projects.length;i++){
-					jQuery('#projet').append(jQuery('<option>').html(data.projects[i].name).attr('value',data.projects[i].id));
-				}
-				
-				var urlUsers="/users.json";
-				if(groupId!=null){
-					urlUsers=urlUsers+'?group_id='+groupId;
-				}
-				getJson(urlUsers,function(data){
-					jQuery('#search-assigned').append(jQuery('<option>').html('----------').attr('value',0));
-					for(i=0;i<data.users.length;i++){
-						jQuery('#search-assigned').append(jQuery('<option>').html(data.users[i].firstname+" "+data.users[i].lastname).attr('value',data.users[i].id));
-					}
-					jQuery('.project-form').show();
-				});
-			});
 			jQuery('#buttonLoad').click(function(){
-				var url=null;
-				if(jQuery('#search-id').val()!=''){
+				var url = null;
+				if (jQuery('#search-id').val()!=''){
 					//Recherche par id
-					url='/issues/'+jQuery('#search-id').val()+'.json?t';
-				}else{
+					url = '/issues/'+jQuery('#search-id').val()+'.json?t';
+				} else {
 					//Recherche sur une liste
-					url='/issues.json?limit=5000';
-					if(jQuery('#projet').val()!='0'){
-						url=url+'&project_id='+jQuery('#projet').val();
+					url = '/issues.json?limit=5000';
+					if (jQuery('#tracker').val() !== ''){
+						url = url + '&tracker_id=' + jQuery('#tracker').val();
 					}
-					if(jQuery('#search-assigned').val()!='0'){
-						url=url+'&assigned_to_id='+jQuery('#search-assigned').val();
+					if (jQuery('#status').val() !== ''){
+						url = url + '&status_id=' + jQuery('#status').val();
 					}
-					if(jQuery('#date-since').val()!=''){
-						url=url+'&created_on=%3E%3D'+jQuery('#date-since').val();
+					if (jQuery('#date-since').val() !== '') {
+						=url+'&created_on=%3E%3D'+jQuery('#date-since').val();
 					}
 				}
 				
-				if(showLinkedTicket){
-					url=url+'&include=relations';
+				if (showLinkedTicket){
+					url = url + '&include=relations';
 				}
 			
 				getJson(url,function(data){
 					var ticketCardModele=jQuery('.ticket-modele');
-					var tickets=jQuery('#tickets').empty();
+					var tickets=jQuery('#tickets');
 					if(data.issues){
 						for(i=0;i<data.issues.length;i++){
 							var issue=data.issues[i];					
@@ -137,25 +116,22 @@
 			jQuery('.estimatedHour',ticketCard).html();
 		}
 
-		if(issue.spent_hours){
+		if (issue.spent_hours) {
 			jQuery('.spendTime',ticketCard).html(issue.spent_hours);
-		}else{
+		} else {
 			jQuery('.spendTime',ticketCard).html();
 		}
-		
-		if(showLinkedTicket && issue.relations && issue.relations.length>0){
+
+		if (showLinkedTicket && issue.relations && issue.relations.length>0) {
 			var text="";
-			for (var i=0;i<issue.relations.length-1;i++){
+			for (var i=0; i<issue.relations.length-1; i++) {
 				text=text+issue.relations[i].id+"-";
 			}
-			text=text+issue.relations[issue.relations.length].id;
 			jQuery('.linked span',ticketCard).html(text);
 			jQuery('.linked',ticketCard).show();
-		}else{
+		} else {
 			jQuery('.linked',ticketCard).hide();
 		}
-		
-		
 		
 		if(issue.custom_fields){
 			for (var i=0;i<issue.custom_fields.length;i++){

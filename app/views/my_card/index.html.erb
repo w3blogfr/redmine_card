@@ -1,3 +1,4 @@
+<%= javascript_include_tag('jquery-1.6.1.min.js', :plugin => 'redmine_card') %>
 <%= javascript_include_tag('date.format.js', :plugin => 'redmine_card') %>
 <%= javascript_include_tag('card', :plugin => 'redmine_card') %>
 <%= stylesheet_link_tag 'card',:media => "all", :plugin => 'redmine_card' %>
@@ -6,17 +7,27 @@
 <input type="hidden" id="relativeUrl" value="<%= Redmine::Utils::relative_url_root %>"/>
 <input type="hidden" id="apiKey" value="<%= @apiKey %>"/>
 
-<form class="form-horizontal project-form" onsubmit="return false;">
+<form class="form-horizontal" onsubmit="return false;">
 	<div class="control-group">
-		<label class="control-label" for="project">Projet</label>
+		<label class="control-label" for="tracker">Tracker</label>
 		<div class="controls">
-			<select id="projet"></select>
+			<select id="tracker">
+				<option value="">-</option>
+				<% @trackers.each do |tracker| %>
+					<option value="<%=tracker.id %>"><%=tracker.name %></option>
+				<% end %>
+			</select>
 		</div>
 	</div>
 	<div class="control-group">
-		<label class="control-label" for="search-assigned">Assigned To</label>
+		<label class="control-label" for="status">Status</label>
 		<div class="controls">
-			<select id="search-assigned"></select>
+			<select id="status">
+				<option value="">-</option>
+				<% @statuses.each do |status| %>
+					<option value="<%=status.id %>"><%=status.name %></option>
+				<% end %>
+			</select>
 		</div>
 	</div>
 	<div class="control-group">
@@ -28,12 +39,13 @@
 	<div class="control-group">
 		<label class="control-label" for="search-id">Id</label>
 		<div class="controls">
-			<input  type="text" id="search-id" placeholder="Rechercher par id"/>
+			<input  type="text" id="search-id" placeholder="Ticket Id"/>
 		</div>
 	</div>
 	<div class="control-group">
 		<div class="controls">
-			<button type="submit" class="btn submit">Load</button>
+			<button type="submit" class="btn submit" id="buttonLoad">Load</button>
+			<button class="btn submit" id="buttonClear">Reset</button>
 		</div>
 	</div>
 </form>
@@ -41,32 +53,34 @@
 <div class="ticket ticket-modele">
 	<span class="id"></span>
 	<span class="subject"></span>
+	<h2><span class="project"></span></h2>
 	<div class="line">
-		Project : <span class="project"></span>
+		Author: <span class="author"></span>
+	</div>
+	<!--
+	<div class="line">
+		Requester: <span class="demandeur"></span>
 	</div>
 	<div class="line">
-		Author : <span class="author"></span>
+		Category: <span class="category"></span>
+	</div>
+	-->
+	<div class="line">
+		Requested Date: <span class="requestedDate"></span>
 	</div>
 	<div class="line">
-		Requester : <span class="demandeur"></span>
+		Commited Date: <span class="commitedDate"></span>
 	</div>
 	<div class="line">
-		Category : <span class="category"></span>
+		Estimated Hours: <span class="estimatedHour"></span>
 	</div>
+	<!--
 	<div class="line">
-		Requested Date : <span class="requestedDate"></span>
+		Spent Time: <span class="spendTime"></span>
 	</div>
-	<div class="line">
-		Commited Date : <span class="commitedDate"></span>
-	</div>
-	<div class="line">
-		Estimated Hour : <span class="estimatedHour"></span>
-	</div>
-	<div class="line">
-		Spent Time : <span class="spendTime"></span>
-	</div>
+	-->
 	<div class="linked">
-		Linked : <span></span>
+		Linked: <span></span>
 	</div>
 
 </div>
