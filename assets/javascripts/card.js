@@ -14,7 +14,7 @@
 
 	relativeUrl=null;
 	var apiKey=null;
-	
+
 	/**
 	 * Fonction qui permet de faire un requête Ajax en gérant l'authentification
 	 */
@@ -40,12 +40,12 @@
 		apiKey=jQuery('#apiKey').val();
 	
 			jQuery('.ticket-modele').hide();
-			jQuery('#projet').empty();
+			jQuery('#project').empty();
 			jQuery('#search-assigned').empty();
 			getJson("/projects.json",function(data){
-				jQuery('#projet').append(jQuery('<option>').html('----------').attr('value',0));
+				jQuery('#project').append(jQuery('<option>').html('----------').attr('value',0));
 				for(i=0;i<data.projects.length;i++){
-					jQuery('#projet').append(jQuery('<option>').html(data.projects[i].name).attr('value',data.projects[i].id));
+					jQuery('#project').append(jQuery('<option>').html(data.projects[i].name).attr('value',data.projects[i].id));
 				}
 				
 				var urlUsers="/users.json";
@@ -68,8 +68,8 @@
 				}else{
 					//Recherche sur une liste
 					url='/issues.json?limit=5000';
-					if(jQuery('#projet').val()!='0'){
-						url=url+'&project_id='+jQuery('#projet').val();
+					if(jQuery('#project').val()!='0'){
+						url=url+'&project_id='+jQuery('#project').val();
 					}
 					if(jQuery('#search-assigned').val()!='0'){
 						url=url+'&assigned_to_id='+jQuery('#search-assigned').val();
@@ -111,11 +111,13 @@
 	 * Fonction qui 
 	 */
 	function getDivPostIssue(ticketCardModele,issue){
+// console.log("getDivPostIssue(issue="+JSON.stringify(issue)+")");
 		var ticketCard=ticketCardModele.clone().removeClass('ticket-modele').addClass('project'+issue.project.id).show();
-		jQuery('.id',ticketCard).html(issue.id);
+
+		jQuery('.id',ticketCard).html('<a href="'+relativeUrl+'/issues/'+issue.id+'">'+issue.id+'</a>');
+		jQuery('.project',ticketCard).html('<a href="'+relativeUrl+'/projects/'+issue.project.name+'/issues">'+issue.project.name+'</a>');
 		jQuery('.subject',ticketCard).html(issue.subject);
-		//jQuery('.status',ticketCard).html(issue.status.name);
-		jQuery('.project',ticketCard).html(issue.project.name);
+		jQuery('.status',ticketCard).html(issue.status.name);
 		jQuery('.author',ticketCard).html(issue.author.name);
 		if(issue.category){
 			jQuery('.category',ticketCard).html(issue.category.name);
@@ -144,19 +146,29 @@
 		}
 		
 		if(showLinkedTicket && issue.relations && issue.relations.length>0){
-			var text="";
-			for (var i=0;i<issue.relations.length-1;i++){
-				text=text+issue.relations[i].id+"-";
+console.log(JSON.stringify(issue.relations));
+			var x_issues=new Array();
+			for (var i=0;i<issue.relations.length;i++){
+			  var il=issue.relations[i];
+			  if(issue.id==il.issue_id) { x_issues[i]= il.issue_to_id; }
+			  else { x_issues[i]= il.issue_id; }
 			}
-			text=text+issue.relations[issue.relations.length].id;
+			var text= JSON.stringify(x_issues); // hmm... that looks fine, actually
+/*
+			// text=text+issue.relations[issue.relations.length-1].issue_id;
+var text;
+			text=text+JSON.stringify(issue.relations[0]);
+			for (var i=1;i<issue.relations.length;i++){
+				// text=text+"-"+issue.relations[i].issue_id;
+				text=text+JSON.stringify(issue.relations[i]);
+			}
+*/
 			jQuery('.linked span',ticketCard).html(text);
 			jQuery('.linked',ticketCard).show();
 		}else{
 			jQuery('.linked',ticketCard).hide();
 		}
-		
-		
-		
+
 		if(issue.custom_fields){
 			for (var i=0;i<issue.custom_fields.length;i++){
 				if(issue.custom_fields[i].id==12){
@@ -175,13 +187,10 @@
 				}
 			}
 		}
-		
+
 		ticketCard.addClass("priority"+issue.priority.id);
 		return ticketCard;
 	}
 
 }());
 
-			
-			
-			
