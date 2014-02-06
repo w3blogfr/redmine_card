@@ -77,6 +77,9 @@
 					if(jQuery('#date-since').val()!=''){
 						url=url+'&created_on=%3E%3D'+jQuery('#date-since').val();
 					}
+					if(jQuery('#tracker').val()!=''){
+						url=url+'&tracker_id='+jQuery('#tracker').val();
+					}
 				}
 				
 				if(showLinkedTicket){
@@ -111,7 +114,7 @@
 	 * Fonction qui 
 	 */
 	function getDivPostIssue(ticketCardModele,issue){
-// console.log("getDivPostIssue(issue="+JSON.stringify(issue)+")");
+console.log("getDivPostIssue(issue="+JSON.stringify(issue)+")");
 		var ticketCard=ticketCardModele.clone().removeClass('ticket-modele').addClass('project'+issue.project.id).show();
 
 		jQuery('.id',ticketCard).html('<a href="'+relativeUrl+'/issues/'+issue.id+'">'+issue.id+'</a>');
