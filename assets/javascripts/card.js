@@ -60,51 +60,65 @@
 					jQuery('.project-form').show();
 				});
 			});
-			jQuery('#buttonLoad').click(function(){
-				var url=null;
-				if(jQuery('#search-id').val()!=''){
-					//Recherche par id
-					url='/issues/'+jQuery('#search-id').val()+'.json?t';
-				}else{
-					//Recherche sur une liste
-					url='/issues.json?limit=5000';
-					if(jQuery('#projet').val()!='0'){
-						url=url+'&project_id='+jQuery('#projet').val();
-					}
-					if(jQuery('#search-assigned').val()!='0'){
-						url=url+'&assigned_to_id='+jQuery('#search-assigned').val();
-					}
-					if(jQuery('#date-since').val()!=''){
-						url=url+'&created_on=%3E%3D'+jQuery('#date-since').val();
-					}
-				}
-				
-				if(showLinkedTicket){
-					url=url+'&include=relations';
-				}
-			
-				getJson(url,function(data){
-					var ticketCardModele=jQuery('.ticket-modele');
-					var tickets=jQuery('#tickets').empty();
-					if(data.issues){
-						for(i=0;i<data.issues.length;i++){
-							var issue=data.issues[i];					
-							tickets.append(getDivPostIssue(ticketCardModele,issue));
-						}
-						if(data.total_count>data.limit){
-							alert(data.limit+"/"+data.total_count);
-						}
-					}else{
-						tickets.append(getDivPostIssue(ticketCardModele,data.issue));
-					}
-				})
-			});
-		
-			jQuery('#buttonClear').click(function(){
-				jQuery('#tickets').empty();
-			});
 
+			jQuery('.project-form .submit1').click(function(){
+				load(false);
+			});
+			jQuery('.project-form .submit2').click(function(){
+				load(true);
+			});
 	});
+
+	/**
+	* Function call to load tickets
+	*/
+	function load(clearBefore){
+		var url=null;
+		if(jQuery('#search-id').val()!=''){
+			//Recherche par id
+			url='/issues/'+jQuery('#search-id').val()+'.json';
+
+			if(showLinkedTicket){
+				url=url+'?include=relations';
+			}
+		}else{
+			//Recherche sur une liste
+			url='/issues.json?limit=5000';
+			if(jQuery('#projet').val()!='0'){
+				url=url+'&project_id='+jQuery('#projet').val();
+			}
+			if(jQuery('#search-assigned').val()!='0'){
+				url=url+'&assigned_to_id='+jQuery('#search-assigned').val();
+			}
+			if(jQuery('#date-since').val()!=''){
+				url=url+'&created_on=%3E%3D'+jQuery('#date-since').val();
+			}
+			if(showLinkedTicket){
+				url=url+'&include=relations';
+			}
+		}
+		
+		
+	
+		getJson(url,function(data){
+			var ticketCardModele=jQuery('.ticket-modele');
+			var tickets=jQuery('#tickets');
+			if(clearBefore){
+				tickets.empty();
+			}
+			if(data.issues){
+				for(i=0;i<data.issues.length;i++){
+					var issue=data.issues[i];					
+					tickets.append(getDivPostIssue(ticketCardModele,issue));
+				}
+				if(data.total_count>data.limit){
+					alert(data.limit+"/"+data.total_count);
+				}
+			}else{
+				tickets.append(getDivPostIssue(ticketCardModele,data.issue));
+			}
+		})
+	}
 	
 	/**
 	 * 
