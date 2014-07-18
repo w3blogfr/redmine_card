@@ -1,3 +1,4 @@
-ActionController::Routing::Routes.draw do |map|
-  map.connect 'my/card', :controller => 'my_card', :action => 'my_index'
-end
+# Plugin's routes
+# See: http://guides.rubyonrails.org/routing.html
+
+get 'my/card', :to => 'my_card#my_index'
