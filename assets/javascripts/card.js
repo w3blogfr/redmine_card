@@ -8,8 +8,7 @@
 	var showLinkedTicket=true;
 
 	var opt={
-		type:"GET",
-		dataType: 'jsonp'
+		type:"GET"
 	};
 
 	relativeUrl=null;
@@ -156,9 +155,9 @@
 			jQuery('.estimatedHour',ticketCard).html();
 		}
 
-		if(issue.spent_hours){
+		if (issue.spent_hours) {
 			jQuery('.spendTime',ticketCard).html(issue.spent_hours);
-		}else{
+		} else {
 			jQuery('.spendTime',ticketCard).html();
 		}
 		
@@ -173,10 +172,9 @@
 			var text= JSON.stringify(x_issues);
 			jQuery('.linked span',ticketCard).html(text);
 			jQuery('.linked',ticketCard).show();
-		}else{
+		} else {
 			jQuery('.linked',ticketCard).hide();
 		}
-
 		if(issue.custom_fields){
 			for (var i=0;i<issue.custom_fields.length;i++){
 				if(issue.custom_fields[i].id==12){
