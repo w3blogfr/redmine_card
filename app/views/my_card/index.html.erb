@@ -7,7 +7,7 @@
 <input type="hidden" id="relativeUrl" value="<%= Redmine::Utils::relative_url_root %>"/>
 <input type="hidden" id="apiKey" value="<%= @apiKey %>"/>
 
-<form class="form-horizontal" onsubmit="return false;">
+<form class="form-horizontal project-form" onsubmit="return false;">
 	<div class="control-group">
 		<label class="control-label" for="project">Project</label>
 		<div class="controls">
@@ -23,6 +23,13 @@
 		  			<option value="<%=tracker.id %>"><%=tracker.name %></option>
 				<% end %>
       			</select>
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="search-assigned">Assigned To</label>
+		<div class="controls">
+			<select id="search-group"></select>
+			<select id="search-assigned"></select>
 		</div>
 	</div>
 	<div class="control-group">
@@ -66,14 +73,13 @@
 </form>
 
 <div class="ticket ticket-modele">
-	<span class="id"></span>
+	<a href="#" class="id"></a>
 	<span class="subject"></span>
-	<h2><span class="project"></span></h2>
 	<div class="line">
-	        Status : <span class="status"></span>
+		Project : <a href="#" class="project"></a>
 	</div>
 	<div class="line">
-		Project : <span class="project"></span>
+	        Status : <span class="status"></span>
 	</div>
 	<div class="line">
 		Author: <span class="author"></span>
@@ -100,7 +106,7 @@
 		Spent Time: <span class="spendTime"></span>
 	</div>
 	-->
-	<div class="linked">
+	<div class="line linked">
 		Linked: <span></span>
 	</div>
 

@@ -1,9 +1,4 @@
 (function () {
-
-	/**
-	* Use to filter assigned list
-	*/
-	var groupId=null;
 	
 	var showLinkedTicket=true;
 
@@ -47,10 +42,49 @@
 					jQuery('#project').append(jQuery('<option>').html(data.projects[i].name).attr('value',data.projects[i].id));
 				}
 				
-				var urlUsers="/users.json";
-				if(groupId!=null){
-					urlUsers=urlUsers+'?group_id='+groupId;
+			});
+
+			getJson('/groups.json',function(data){
+				jQuery('#search-group').append(jQuery('<option>').html('----------').attr('value',0));
+				for(i=0;i<data.groups.length;i++){
+					jQuery('#search-group').append(jQuery('<option>').html(data.groups[i].name).attr('value',data.groups[i].id));
 				}
+			});
+
+			
+
+			jQuery('#search-group').change(refreshUser);
+			refreshUser();//On load, we show all users
+
+			setTimeout(function(){
+				//Wait 1 second for ajax request before show form
+				jQuery('.project-form').show();
+			},1000);
+
+			jQuery('.project-form .submit1').click(function(){
+				console.log('submit1');
+				load(false);
+			});
+			jQuery('.project-form .submit2').click(function(){
+				console.log('submit2');
+				load(true);
+			});
+			jQuery('#buttonClear').click(function(){
+				jQuery('#tickets').empty();
+			});
+
+
+	});
+
+	/**
+	* Refresh users list depending group selected or not
+	*/
+	function refreshUser(){
+				var urlUsers="/users.json";
+				if(parseInt(jQuery('#search-group').val())>0){
+					urlUsers=urlUsers+'?group_id='+jQuery('#search-group').val();
+				}
+				jQuery('#search-assigned').empty();
 				getJson(urlUsers,function(data){
 					jQuery('#search-assigned').append(jQuery('<option>').html('----------').attr('value',0));
 					for(i=0;i<data.users.length;i++){
@@ -58,15 +92,7 @@
 					}
 					jQuery('.project-form').show();
 				});
-			});
-
-			jQuery('.project-form .submit1').click(function(){
-				load(false);
-			});
-			jQuery('.project-form .submit2').click(function(){
-				load(true);
-			});
-	});
+	}
 
 	/**
 	* Function call to load tickets
@@ -83,8 +109,8 @@
 		}else{
 			//Recherche sur une liste
 			url='/issues.json?limit=5000';
-			if(jQuery('#projet').val()!='0'){
-				url=url+'&project_id='+jQuery('#projet').val();
+			if(jQuery('#project').val()!='0'){
+				url=url+'&project_id='+jQuery('#project').val();
 			}
 			if(jQuery('#search-assigned').val()!='0'){
 				url=url+'&assigned_to_id='+jQuery('#search-assigned').val();
@@ -130,8 +156,8 @@
 		console.log("getDivPostIssue(issue="+JSON.stringify(issue)+")");
 		var ticketCard=ticketCardModele.clone().removeClass('ticket-modele').addClass('project'+issue.project.id).show();
 
-		jQuery('.id',ticketCard).html('<a href="'+relativeUrl+'/issues/'+issue.id+'">'+issue.id+'</a>');
-		jQuery('.project',ticketCard).html('<a href="'+relativeUrl+'/projects/'+issue.project.name+'/issues">'+issue.project.name+'</a>');
+		jQuery('.id',ticketCard).html(issue.id).attr('href',relativeUrl+'/issues/'+issue.id);
+		jQuery('.project',ticketCard).html(issue.project.name).attr('href',relativeUrl+'/projects/'+issue.project.name+'/issues');
 		jQuery('.subject',ticketCard).html(issue.subject);
 		jQuery('.status',ticketCard).html(issue.status.name);
 		jQuery('.author',ticketCard).html(issue.author.name);
