@@ -146,6 +146,9 @@
 				tickets.append(getDivPostIssue(ticketCardModele,data.issue));
 			}
 		})
+		
+		//Empty ticket id to start again
+		jQuery('#search-id').val('');
 	}
 	
 	/**
