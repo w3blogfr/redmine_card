@@ -70,7 +70,9 @@
 }
 
 
-
+#cbp_images_form{ /* Hide Plugin Clipboard image paste*/
+	display:none;
+}
 
 
 
