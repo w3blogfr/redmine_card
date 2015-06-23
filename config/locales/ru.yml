@@ -1,0 +1,20 @@
+# Russian strings go here for Rails i18n
+ru:
+  label_task_board: Печать тикетов
+  task_board_help: Вы должны создать колонки для доски задач. Каждая колонка может представлять несколько статусов задач.
+  task_board_column_title: Название колонки
+  task_board_create_column: Создать колонку
+  label_task_board_application_error: неожиданная ошибка приложения
+  task_board_statuses: Статусы
+  task_board_columns: Колонки
+  task_board_not_shown: Не показывать
+  task_board_visible_columns: Видимые колонки
+  task_board_task_limit: Максимальное количество тасков
+  task_board_save_changes: Сохранить изменения
+  task_board_issue_archived: This issue is archived from the task board view and will not display.
+  task_board_issue_archived: Эта задача заархиврована и не будет отображена.
+  task_board_issue_unarchive: Разархивировать задачу
+  task_board_issue_bulk_archive: Архивировать выбраные задачи
+  task_board_issue_bulk_edit: Редактировать выбраные задачи
+  task_board_not_prioritized: Остальные задачи
+  task_board_prioritized: Приоритезировать задачи
