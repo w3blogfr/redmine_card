@@ -207,7 +207,7 @@
 		jQuery('.line.custom-field').hide();
 		if(issue.custom_fields){
 			for (var i=0;i<issue.custom_fields.length;i++){
-				if(issue.custom_fields[i].id==12){
+				if(issue.custom_fields[i].id=='12'){
 					//Nom du demandeur
 					if(issue.custom_fields[i].value=="Moi"){
 						jQuery('.demandeur span',ticketCard).html(issue.author.name);
@@ -216,7 +216,7 @@
 					}
 					jQuery('.demandeur').show();
 				}
-				if(issue.custom_fields[i].id==13){
+				if(issue.custom_fields[i].id=='13'){
 					//Date souhaité
 					if(issue.custom_fields[i].value){
 						jQuery('.requestedDate span',ticketCard).html(dateFormat(new Date(issue.custom_fields[i].value),"yyyy-mm-dd"));
